@@ -1,88 +1,87 @@
 @tool
 extends ActiveBodypart
 
-const parry_window := 0.5
+const PERFECT_WINDOW = 0.5
+const PERFECT_PARRY = preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/PerfectParry.tscn")
+const UNEXACT_PARRY = preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/UnexactParry.tscn")
 
-const PERFECT_PARRY := preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/PerfectParry.tscn")
-const UNEXACT_PARRY := preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/UnexactParry.tscn")
-
-var _blocking := false
-var _reward_available := false
-var _block_start := -100.0
-var _cooldown := 0.0
+var isBlocking = false
+var canCounter = false
+var lastStartTime = -100.0
+var parryCooldownRest = 0.0
 
 func _ready() -> void:
 	super()
 	attack_button = G.AttackButton.SECONDARY
-	SignalBus.player_pre_hit.connect(_on_player_pre_hit)
+	SignalBus.player_pre_hit.connect(prehitTest)
 
-func _on_player_pre_hit(player, _damage, attack) -> void:
-	if not _blocking:
+func prehitTest(player, _damage, attack) -> void:
+	if not isBlocking:
 		return
-	var elapsed := Time.get_ticks_msec() / 1000.0 - _block_start
-	if elapsed >= get_block_window():
-		_blocking = false
+	var elapsed = Time.get_ticks_msec() / 1000.0 - lastStartTime
+	if elapsed >= getParryDuration():
+		isBlocking = false
 		return
-	if elapsed <= parry_window or randf() < get_block_success_chance():
+	if elapsed <= getPerfectWindow() or randf() < unexactParryRate():
 		player.damage_blocked = true
-		if _reward_available:
-			_reward_available = false
-			provided_charge = get_charge()
-			$Timer.start(get_block_duration())
+		if canCounter:
+			canCounter = false
+			provided_charge = getChargeMult()
+			$Timer.start(getChargeDuration())
 			blink()
 		var hit_pos = player.center_body.global_position
 		if attack != null and "affected_body" in attack and is_instance_valid(attack.affected_body):
 			hit_pos = attack.affected_body.global_position
-		_spawn_parry_effect(hit_pos, elapsed <= parry_window)
+		spawnSpark(hit_pos, elapsed <= getPerfectWindow())
 	else:
-		_blocking = false
+		isBlocking = false
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	_cooldown = maxf(_cooldown - delta, 0.0)
-	if _blocking and Time.get_ticks_msec() / 1000.0 - _block_start >= get_block_window():
-		_blocking = false
-	if _blocking:
+	parryCooldownRest = maxf(parryCooldownRest - delta, 0.0)
+	if isBlocking and Time.get_ticks_msec() / 1000.0 - lastStartTime >= getParryDuration():
+		isBlocking = false
+	if isBlocking:
 		%Progress.value = 1.0
-	elif _cooldown > 0.0:
-		%Progress.value = 1.0 - _cooldown / get_cooldown()
+	elif parryCooldownRest > 0.0:
+		%Progress.value = 1.0 - parryCooldownRest / getCooldownTime()
 	elif max_energy > 0.0:
 		%Progress.value = energy / max_energy
 
 func can_activate() -> bool:
-	return _cooldown <= 0.0 and energy >= get_activation_cost() - 0.1
+	return parryCooldownRest <= 0.0 and energy >= get_activation_cost() - 0.1
 
 func activate_pressed() -> void:
 	if G.editor.state == G.EditorState.HIDDEN and slot != null and G.player.should_listen_to_events and not G.player.dead:
 		if not can_activate():
 			return
 		energy -= get_activation_cost()
-		_cooldown = get_cooldown()
+		parryCooldownRest = getCooldownTime()
 		AudioManager.active_charged.play()
 		blink()
 		activate()
 
 func activate() -> void:
-	_blocking = true
-	_reward_available = true
-	_block_start = Time.get_ticks_msec() / 1000.0
-	_flash()
+	isBlocking = true
+	canCounter = true
+	lastStartTime = Time.get_ticks_msec() / 1000.0
+	parryEffect()
 
 func _on_timer_timeout() -> void:
 	provided_charge = 0.0
 
-func _spawn_parry_effect(hit_pos: Vector2, perfect: bool) -> void:
+func spawnSpark(pos: Vector2, perfect: bool) -> void:
 	if not is_instance_valid(G.player) or not is_instance_valid(G.player.center_body):
 		return
 	var effect: Node2D = (PERFECT_PARRY if perfect else UNEXACT_PARRY).instantiate()
 	G.main.add_child(effect)
 	effect.global_position = G.player.center_body.global_position
-	effect.rotation = G.player.center_body.global_position.angle_to_point(hit_pos)
+	effect.rotation = G.player.center_body.global_position.angle_to_point(pos)
 	effect.shot()
 
-func _flash() -> void:
-	var c := Color(1.0, 1.0, 2.0)
-	var tween := create_tween().set_process_mode(Tween.TWEEN_PROCESS_IDLE).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+func parryEffect() -> void:
+	var c = Color(1.0, 1.0, 2.0)
+	var tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_IDLE).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_method(func(x):
 		if not is_instance_valid(G.player):
 			return
@@ -91,13 +90,13 @@ func _flash() -> void:
 		if G.player.get_node("CanvasGroup").material:
 			G.player.get_node("CanvasGroup").set_instance_shader_parameter("hit_value", x)
 			G.player.get_node("CanvasGroup").set_instance_shader_parameter("hit_color", c)
-	, 1.0, 0.5, get_block_window() - 0.3)
+	, 1.0, 0.5, getParryDuration() - 0.3)
 	tween.tween_callback(func():
 		if is_instance_valid(G.player):
 			G.player._hit_anim(c, 0.2, 0.5)
 	)
 
-func get_charge() -> float:
+func getChargeMult() -> float:
 	return 3.0 + rarity
 
 func get_stats_after_text() -> String:
@@ -105,21 +104,25 @@ func get_stats_after_text() -> String:
 		return tr(stats_after_text)
 	return ""
 
-func get_block_window() -> float:
+func getParryDuration() -> float:
 	return 1.0 + 0.25 * rarity
 
-func get_block_success_chance() -> float:
+func getPerfectWindow() -> float:
+	return PERFECT_WINDOW * getParryDuration()
+
+func unexactParryRate() -> float:
 	return maxf(0.5 - 0.04 * rarity, 0.0)
 
-func get_block_duration() -> float:
+func getChargeDuration() -> float:
 	return 3 + 1.0 * rarity
 
-func get_cooldown() -> float:
+func getCooldownTime() -> float:
 	return 1.0 - 0.15 * rarity
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
-		"provided_charge": "%s× " % Utils.snapped(get_charge(), 0.1),
-		"duration": roundi(get_block_duration()),
-		"cooldown": roundi(get_cooldown()),
+		"provided_charge": "%s× " % Utils.snapped(getChargeMult(), 0.1),
+		"duration": roundi(getChargeDuration()),
+		"cooldown": roundi(getCooldownTime()),
+		"perfect_parry_window": Utils.snapped(getPerfectWindow(), 0.1),
 	})
