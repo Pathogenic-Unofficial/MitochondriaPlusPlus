@@ -114,7 +114,7 @@ func get_block_success_chance() -> float:
 	return maxf(0.5 - 0.04 * rarity, 0.0)
 
 func get_block_duration() -> float:
-	return 4.0 + 2.0 * rarity
+	return 2.5 + 1.0 * rarity
 
 func get_cooldown() -> float:
 	return 1.0 - 0.15 * rarity
