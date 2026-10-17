@@ -48,6 +48,7 @@ z_index = 4
 script = ExtResource("1")
 res = ExtResource("2")
 stats_text = "o_atp_hydrolase_stats"
+charged_text = "o_atp_hydrolase_charged"
 
 [node name="Visual" type="Node2D" parent="."]
 visibility_layer = 19
