@@ -35,7 +35,7 @@ func get_charge() -> float:
 	return 2.0 + rarity
 
 func get_duration() -> float:
-	return 8.0
+	return 5.0
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
