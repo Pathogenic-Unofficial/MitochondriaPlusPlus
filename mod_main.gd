@@ -1,7 +1,7 @@
 extends Node
 
-const MOD_DIR := "FallingShrimp-MitochondriaPlusPlus"
-const LOG_NAME := "FallingShrimp-MitochondriaPlusPlus:Main"
+const MOD_DIR := "FallingShrimp-adenosine_hexaphosphate"
+const LOG_NAME := "FallingShrimp-adenosine_hexaphosphate:Main"
 
 const BODYPART_IDS := [
 	"pulse_mitochondrion",

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dik3u57hijdwy"
-path="res://.godot/imported/perfect-parry.wav-74e6f49fb2839b622b929f117eeeae3a.sample"
+path="res://.godot/imported/perfect-parry.wav-66e3ed721e9257205fe3e4fe5538b569.sample"
 
 [deps]
 
-source_file="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/sounds/perfect-parry.wav"
-dest_files=["res://.godot/imported/perfect-parry.wav-74e6f49fb2839b622b929f117eeeae3a.sample"]
+source_file="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/sounds/perfect-parry.wav"
+dest_files=["res://.godot/imported/perfect-parry.wav-66e3ed721e9257205fe3e4fe5538b569.sample"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/scn/player/bodyparts/internal/atp_transferase.gd" id="1"]
-[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/scn/player/bodyparts/internal/atp_transferase.tres" id="2"]
+[ext_resource type="Script" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/atp_transferase.gd" id="1"]
+[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/atp_transferase.tres" id="2"]
 [ext_resource type="Texture2D" path="res://gfx/player/bodyparts/internal/conduit.png" id="3"]
 
 [sub_resource type="Animation" id="Animation_reset"]

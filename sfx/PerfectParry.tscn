@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ctf1b5887oo1i"]
 
-[ext_resource type="PackedScene" uid="uid://cxp6oy0iktpuh" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/EffectBase.tscn" id="1_1v0ea"]
-[ext_resource type="AudioStream" uid="uid://dik3u57hijdwy" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/sounds/perfect-parry.wav" id="2_1j1ln"]
-[ext_resource type="Texture2D" uid="uid://5ljnsoxwsw72" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/effects/spark.svg" id="3_ddoou"]
-[ext_resource type="Texture2D" uid="uid://f1swbaessnw8" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/effects/star.svg" id="4_i8oqs"]
+[ext_resource type="PackedScene" uid="uid://cxp6oy0iktpuh" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/scn/EffectBase.tscn" id="1_1v0ea"]
+[ext_resource type="AudioStream" uid="uid://dik3u57hijdwy" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/sounds/perfect-parry.wav" id="2_1j1ln"]
+[ext_resource type="Texture2D" uid="uid://5ljnsoxwsw72" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/effects/spark.svg" id="3_ddoou"]
+[ext_resource type="Texture2D" uid="uid://f1swbaessnw8" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/effects/star.svg" id="4_i8oqs"]
 
 [sub_resource type="Animation" id="Animation_sooux"]
 length = 0.001

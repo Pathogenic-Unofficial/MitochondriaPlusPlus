@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cxp6oy0iktpuh"]
 
-[ext_resource type="PackedScene" uid="uid://dtybtaij5lm0g" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/ShaderStage.tscn" id="1_44wuf"]
-[ext_resource type="Script" uid="uid://bi8uffofkwcag" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/EffectPlayer.gd" id="1_xccqq"]
-[ext_resource type="PackedScene" uid="uid://ds2lqjafjwia6" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/SoundStage.tscn" id="2_6117n"]
+[ext_resource type="PackedScene" uid="uid://dtybtaij5lm0g" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/scn/ShaderStage.tscn" id="1_44wuf"]
+[ext_resource type="Script" uid="uid://bi8uffofkwcag" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/scn/EffectPlayer.gd" id="1_xccqq"]
+[ext_resource type="PackedScene" uid="uid://ds2lqjafjwia6" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/scn/SoundStage.tscn" id="2_6117n"]
 
 [node name="EffectBase" type="Node2D" unique_id=685466674]
 process_mode = 3

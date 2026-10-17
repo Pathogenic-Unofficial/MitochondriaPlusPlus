@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/scn/player/bodyparts/internal/atp_hydrolase.gd" id="1"]
-[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/scn/player/bodyparts/internal/atp_hydrolase.tres" id="2"]
+[ext_resource type="Script" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/atp_hydrolase.gd" id="1"]
+[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/atp_hydrolase.tres" id="2"]
 [ext_resource type="Texture2D" path="res://gfx/player/bodyparts/internal/charged_dmg.png" id="3"]
 
 [sub_resource type="Animation" id="Animation_reset"]

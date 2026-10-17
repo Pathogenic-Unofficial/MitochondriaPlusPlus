@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://difr5t2chnk5q"
-path="res://.godot/imported/unexact-parry.wav-2ba49f74909ab9f79eac6af61eefa2f0.sample"
+path="res://.godot/imported/unexact-parry.wav-0c671173d7ea4f627fdc2948b81d8012.sample"
 
 [deps]
 
-source_file="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/sounds/unexact-parry.wav"
-dest_files=["res://.godot/imported/unexact-parry.wav-2ba49f74909ab9f79eac6af61eefa2f0.sample"]
+source_file="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/sounds/unexact-parry.wav"
+dest_files=["res://.godot/imported/unexact-parry.wav-0c671173d7ea4f627fdc2948b81d8012.sample"]
 
 [params]
 

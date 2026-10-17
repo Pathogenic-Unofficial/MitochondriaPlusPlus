@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://f1swbaessnw8"
-path="res://.godot/imported/star.svg-f76b88a0114f12dbe9bf3cdbb23a4579.ctex"
+path="res://.godot/imported/star.svg-64265c84174fbd70071235d7c48fd203.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/effects/star.svg"
-dest_files=["res://.godot/imported/star.svg-f76b88a0114f12dbe9bf3cdbb23a4579.ctex"]
+source_file="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/effects/star.svg"
+dest_files=["res://.godot/imported/star.svg-64265c84174fbd70071235d7c48fd203.ctex"]
 
 [params]
 

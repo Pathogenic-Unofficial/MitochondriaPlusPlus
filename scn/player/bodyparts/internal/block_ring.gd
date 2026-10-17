@@ -3,8 +3,8 @@ extends ActiveBodypart
 
 const parry_window := 0.5
 
-const PERFECT_PARRY := preload("res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/sfx/PerfectParry.tscn")
-const UNEXACT_PARRY := preload("res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/sfx/UnexactParry.tscn")
+const PERFECT_PARRY := preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/PerfectParry.tscn")
+const UNEXACT_PARRY := preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/sfx/UnexactParry.tscn")
 
 var _blocking := false
 var _reward_available := false
