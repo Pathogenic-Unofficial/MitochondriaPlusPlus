@@ -19,7 +19,7 @@ func _get_source_charge() -> float:
 		for c in nodes[i].connections:
 			if not is_instance_valid(c):
 				continue
-			if c.get_id() == "atp_transferase":
+			if c.res.get_id() == "atp_transferase":
 				if c not in nodes:
 					nodes.append(c)
 			elif c not in sources:
