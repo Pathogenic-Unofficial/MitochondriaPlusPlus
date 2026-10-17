@@ -5,8 +5,8 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 	if provided_charge > 0.0:
 		%Progress.value = $Timer.time_left / get_duration()
-	elif max_energy > 0.0:
-		%Progress.value = energy / max_energy
+	else:
+		%Progress.value = 1.0
 
 func can_activate() -> bool:
 	if not is_instance_valid(G.player):
@@ -19,7 +19,6 @@ func activate_pressed() -> void:
 			return
 		G.player.dna -= 1
 		G.dna_mesh.set_level(G.player.level + G.player.dna / float(G.player.dna_to_level_up()))
-		energy -= get_activation_cost()
 		AudioManager.active_charged.play()
 		blink()
 		activate()
@@ -33,6 +32,11 @@ func _on_timer_timeout() -> void:
 
 func get_charge() -> float:
 	return 2.0 + rarity
+
+func get_stats_after_text() -> String:
+	if stats_after_text:
+		return tr(stats_after_text)
+	return ""
 
 func get_duration() -> float:
 	return 5.0 + rarity

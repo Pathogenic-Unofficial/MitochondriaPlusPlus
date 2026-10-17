@@ -101,11 +101,9 @@ func get_charge() -> float:
 	return 3.0 + rarity
 
 func get_stats_after_text() -> String:
-	var ret := ""
 	if stats_after_text:
-		ret += tr(stats_after_text) + "{hr}"
-	ret += tr("organelle_active_cost")
-	return ret
+		return tr(stats_after_text)
+	return ""
 
 func get_block_window() -> float:
 	return 1.0 + 0.25 * rarity
@@ -114,7 +112,7 @@ func get_block_success_chance() -> float:
 	return maxf(0.5 - 0.04 * rarity, 0.0)
 
 func get_block_duration() -> float:
-	return 2.5 + 1.0 * rarity
+	return 3 + 1.0 * rarity
 
 func get_cooldown() -> float:
 	return 1.0 - 0.15 * rarity

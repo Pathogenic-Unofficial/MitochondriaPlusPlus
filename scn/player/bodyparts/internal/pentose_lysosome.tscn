@@ -47,8 +47,8 @@ visibility_layer = 19
 z_index = 4
 script = ExtResource("1")
 res = ExtResource("2")
-max_energy = 10.0
-stats_text = "o_pentose_lysosome_stats"
+max_energy = 0.0
+activate_cost = 0.0
 
 [node name="Visual" type="Node2D" parent="."]
 visibility_layer = 19

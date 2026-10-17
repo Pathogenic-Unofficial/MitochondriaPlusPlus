@@ -47,7 +47,6 @@ visibility_layer = 19
 z_index = 4
 script = ExtResource("1")
 res = ExtResource("2")
-stats_text = "o_pulse_mito_stats"
 
 [node name="Visual" type="Node2D" parent="."]
 visibility_layer = 19
