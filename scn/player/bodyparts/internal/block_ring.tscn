@@ -48,6 +48,8 @@ z_index = 4
 script = ExtResource("1")
 res = ExtResource("2")
 stats_text = "o_block_ring_stats"
+max_energy = 1.0
+activate_cost = 0.5
 
 [node name="Visual" type="Node2D" parent="."]
 visibility_layer = 19

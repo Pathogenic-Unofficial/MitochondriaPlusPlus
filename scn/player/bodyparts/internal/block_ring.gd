@@ -44,16 +44,19 @@ func _physics_process(delta: float) -> void:
 		_blocking = false
 	if _blocking:
 		%Progress.value = 1.0
-	else:
+	elif _cooldown > 0.0:
 		%Progress.value = 1.0 - _cooldown / get_cooldown()
+	elif max_energy > 0.0:
+		%Progress.value = energy / max_energy
 
 func can_activate() -> bool:
-	return _cooldown <= 0.0
+	return _cooldown <= 0.0 and energy >= get_activation_cost() - 0.1
 
 func activate_pressed() -> void:
 	if G.editor.state == G.EditorState.HIDDEN and slot != null and G.player.should_listen_to_events and not G.player.dead:
 		if not can_activate():
 			return
+		energy -= get_activation_cost()
 		_cooldown = get_cooldown()
 		AudioManager.active_charged.play()
 		blink()
@@ -111,7 +114,7 @@ func get_block_duration() -> float:
 	return 4.0 + 2.0 * rarity
 
 func get_cooldown() -> float:
-	return 2.0 - 0.15 * rarity
+	return 1.0 - 0.15 * rarity
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
