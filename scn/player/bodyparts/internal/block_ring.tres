@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BodypartResource" format=3 uid="uid://bhsld86ybg1jv"]
+
+[ext_resource type="Script" uid="uid://hsn4ml2dwaan" path="res://scn/player/bodyparts/bodypart_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+ui_name = "o_block_ring_name"
+description = "o_block_ring_desc"
+flavor_text = "o_block_ring_flavor"
+tags = Array[int]([6, 9, 0])
+needs_connection_warning = Array[int]([1])
+random_weight = 1.2
+icon_texture = "res://gfx/player/bodyparts/internal/energy_orbital.png"

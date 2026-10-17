@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dtybtaij5lm0g"]
+
+[ext_resource type="Script" uid="uid://c7626h2c442ed" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/ShaderStage.gd" id="1_wuceu"]
+
+[node name="ShaderStage" type="Node2D" unique_id=784770636]
+script = ExtResource("1_wuceu")
+
+[node name="rect" type="ColorRect" parent="." unique_id=1094670784]
+unique_name_in_owner = true
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ds2lqjafjwia6"]
+
+[ext_resource type="Script" uid="uid://1fcqk1yaob5b" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/SoundStage.gd" id="1_uj6xr"]
+
+[node name="SoundStage" type="Node2D" unique_id=2008599912]
+script = ExtResource("1_uj6xr")

@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://jmrkr7sihtxm"]
+
+[ext_resource type="PackedScene" uid="uid://cxp6oy0iktpuh" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/scn/EffectBase.tscn" id="1_ddjuk"]
+[ext_resource type="AudioStream" uid="uid://difr5t2chnk5q" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/sounds/unexact-parry.wav" id="2_ddjuk"]
+[ext_resource type="Texture2D" uid="uid://5ljnsoxwsw72" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/effects/spark.svg" id="4_15ohw"]
+[ext_resource type="Texture2D" uid="uid://f1swbaessnw8" path="res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/gfx/effects/star.svg" id="5_qprsb"]
+
+[sub_resource type="Animation" id="Animation_sooux"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("texture:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.9866621, 0.69905746, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ddjuk"]
+resource_name = "spawn"
+length = 1.5
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("texture:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, 0, 0, 0, 2.5, 0, -1, 0, 0, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("texture:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(0, 0, 0, 0, 2.5, 0, -1, 0, 0, 0),
+"times": PackedFloat32Array(0, 1.5)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("texture:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.99, 0.7095, 0, 0), Color(0.99, 0.7095, 0, 1), Color(0.99, 0.7095, 0, 1), Color(0.99, 0.7095, 0, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [200.0, 150.0],
+"method": &"shake"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rqce"]
+_data = {
+&"RESET": SubResource("Animation_sooux"),
+&"spawn": SubResource("Animation_ddjuk")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mm61v"]
+
+[sub_resource type="Curve" id="Curve_7h6aa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ybuw1"]
+curve = SubResource("Curve_7h6aa")
+
+[sub_resource type="Curve" id="Curve_sooux"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mm61v"]
+curve = SubResource("Curve_sooux")
+
+[sub_resource type="Gradient" id="Gradient_8u25p"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.62058055, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kmh8y"]
+gradient = SubResource("Gradient_8u25p")
+
+[sub_resource type="Curve" id="Curve_onegn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g2jo3"]
+curve = SubResource("Curve_onegn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4775v"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+angle_curve = SubResource("CurveTexture_mm61v")
+direction = Vector3(-1, -0.5, 0)
+spread = 70.0
+initial_velocity_min = 100.0
+initial_velocity_max = 2000.0
+gravity = Vector3(0, 1500, 0)
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_g2jo3")
+color_initial_ramp = SubResource("GradientTexture1D_kmh8y")
+alpha_curve = SubResource("CurveTexture_ybuw1")
+
+[node name="EffectBase" unique_id=685466674 instance=ExtResource("1_ddjuk")]
+oneShot = true
+autoplayAnimation = &"spawn"
+autoplaySound = &"spawn"
+
+[node name="spawn" type="AudioStreamPlayer2D" parent="sounds" parent_id_path=PackedInt32Array(2008599912) index="0" unique_id=979547621]
+stream = ExtResource("2_ddjuk")
+
+[node name="animator" parent="." index="3" unique_id=138184434]
+libraries/ = SubResource("AnimationLibrary_5rqce")
+
+[node name="shader" parent="." index="4" unique_id=784770636]
+visible = false
+material = SubResource("ShaderMaterial_mm61v")
+
+[node name="texture" parent="." index="6" unique_id=212148538]
+modulate = Color(0.9866621, 0.69905746, 0, 1)
+z_index = 1
+rotation = 1.5707964
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("4_15ohw")
+
+[node name="particles" parent="." index="7" unique_id=2076768246]
+amount = 50
+texture = ExtResource("5_qprsb")
+lifetime = 1.5
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4775v")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BodypartResource" format=3]
+
+[ext_resource type="Script" uid="uid://hsn4ml2dwaan" path="res://scn/player/bodyparts/bodypart_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+ui_name = "o_pentose_lysosome_name"
+description = "o_pentose_lysosome_desc"
+flavor_text = "o_pentose_lysosome_flavor"
+tags = [6, 9, 0]
+needs_connection_warning = [1]
+unlock = null
+random_weight = 1.2
+icon_texture = "res://gfx/player/bodyparts/internal/dorsal_lysosome.png"
