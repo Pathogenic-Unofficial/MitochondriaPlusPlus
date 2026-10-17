@@ -61,10 +61,11 @@ const MESSAGES := {
 		"o_atp_transferase_name": "ATP转移酶",
 		"o_atp_transferase_desc": "将过载传递给已连接的细胞器。",
 		"o_atp_transferase_charged": "连接的细胞器也获得过载。",
-		"o_dext_name": "Dext",
-		"o_dext_desc": "伤害{neg}-{base_mult}%{/neg}。{charge}过载时额外{neg}-{charge_mult}%{/neg}。",
-		"o_dext_flavor": "冻肉来袭！",
 		"o_atp_transferase_flavor": "我们不生产ATP，我们只做线粒体的搬运工。",
+		"o_dext_name": "Dext",
+		"o_dext_desc": "伤害{neg}-{base_mult}%{/neg}。",
+		"o_dext_flavor": "冻肉来袭！",
+		"o_dext_charged": "伤害{neg}-{charge_mult}%{/neg}",
 	},
 }
 

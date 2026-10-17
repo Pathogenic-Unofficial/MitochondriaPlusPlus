@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://vxwj28rlsvkh"]
 
 [ext_resource type="Script" uid="uid://dvuwyctnnpkpw" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/dext.gd" id="1"]
-[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/dext.tres" id="2"]
+[ext_resource type="Resource" uid="uid://6n0twbtmt018" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/dext.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://snvdreukmpk" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/bodyparts/dext.jpg" id="3"]
 
 [sub_resource type="Animation" id="Animation_reset"]
@@ -79,6 +79,7 @@ visibility_layer = 19
 z_index = 4
 script = ExtResource("1")
 res = ExtResource("2")
+charged_text = "o_dext_charged"
 
 [node name="Visual" type="Node2D" parent="." unique_id=1337842402]
 visibility_layer = 19
