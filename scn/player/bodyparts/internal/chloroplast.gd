@@ -1,13 +1,9 @@
 @tool
 extends Bodypart
 
-const overcharge_base_bonus := 0.1
 const overcharge_extra_bonus := 0.1
-const hit_bonus := 0.6
 const hit_overcharge_bonus := 0.4
-const graze_bonus := 0.3
 const graze_overcharge_bonus := 0.3
-const trigger_duration := 4.0
 const graze_radius := 220.0
 
 var _hit_time_left := 0.0
@@ -37,19 +33,31 @@ func _on_bodypart_modify_tick(b) -> void:
 	b.energy_generation_mult += get_bonus()
 
 func get_bonus() -> float:
-	var ret := overcharge_base_bonus
+	var ret := get_base_bonus()
 	var overcharged := charge > 0.0
 	if overcharged:
 		ret += overcharge_extra_bonus
 	if _hit_time_left > 0.0:
-		ret += hit_bonus + (hit_overcharge_bonus if overcharged else 0.0)
+		ret += get_hit_bonus() + (hit_overcharge_bonus if overcharged else 0.0)
 	if _graze_time_left > 0.0:
-		ret += graze_bonus + (graze_overcharge_bonus if overcharged else 0.0)
+		ret += get_graze_bonus() + (graze_overcharge_bonus if overcharged else 0.0)
 	return ret
+
+func get_base_bonus() -> float:
+	return 0.1 + 0.09 * rarity
+
+func get_hit_bonus() -> float:
+	return 0.6 + 0.3 * rarity
+
+func get_graze_bonus() -> float:
+	return 0.3 + 0.2 * rarity
+
+func get_trigger_duration() -> float:
+	return 4.0 + rarity
 
 func _on_player_pre_hit(_player, _damage, attack) -> void:
 	if attack is Beam:
-		_hit_time_left = trigger_duration
+		_hit_time_left = get_trigger_duration()
 
 func _on_node_added(n: Node) -> void:
 	if not (n is Beam):
@@ -68,7 +76,7 @@ func _on_beam_missed(end_point: Vector2, beam: Beam) -> void:
 	var from := beam.global_position
 	var dist := _point_segment_distance(G.player.center_body.global_position, from, end_point)
 	if dist < graze_radius:
-		_graze_time_left = trigger_duration
+		_graze_time_left = get_trigger_duration()
 		blink()
 
 static func _point_segment_distance(p: Vector2, a: Vector2, b: Vector2) -> float:
@@ -78,6 +86,6 @@ static func _point_segment_distance(p: Vector2, a: Vector2, b: Vector2) -> float
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
-		"base_bonus": roundi(overcharge_base_bonus * 100),
-		"trigger_duration": roundi(trigger_duration),
+		"base_bonus": roundi(get_base_bonus() * 100),
+		"trigger_duration": roundi(get_trigger_duration()),
 	})

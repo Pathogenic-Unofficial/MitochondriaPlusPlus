@@ -1,9 +1,7 @@
 @tool
 extends ActiveBodypart
 
-const block_window := 1.0
 const parry_window := 0.5
-const block_success_chance := 0.5
 
 const PERFECT_PARRY := preload("res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/sfx/PerfectParry.tscn")
 const UNEXACT_PARRY := preload("res://mods-unpacked/FallingShrimp-MitochondriaPlusPlus/sfx/UnexactParry.tscn")
@@ -23,10 +21,10 @@ func _on_player_pre_hit(player, _damage, attack) -> void:
 	if ml == null or ml.hook_active or not _blocking:
 		return
 	var elapsed := Time.get_ticks_msec() / 1000.0 - _block_start
-	if elapsed >= block_window:
+	if elapsed >= get_block_window():
 		_blocking = false
 		return
-	if elapsed <= parry_window or randf() < block_success_chance:
+	if elapsed <= parry_window or randf() < get_block_success_chance():
 		player.damage_blocked = true
 		if _reward_available:
 			_reward_available = false
@@ -53,7 +51,7 @@ func _exit_tree() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	_cooldown = maxf(_cooldown - delta, 0.0)
-	if _blocking and Time.get_ticks_msec() / 1000.0 - _block_start >= block_window:
+	if _blocking and Time.get_ticks_msec() / 1000.0 - _block_start >= get_block_window():
 		_blocking = false
 	if _blocking:
 		%Progress.value = 1.0
@@ -82,10 +80,10 @@ func _try_block(hit_pos: Vector2) -> bool:
 	if not _blocking:
 		return false
 	var elapsed := Time.get_ticks_msec() / 1000.0 - _block_start
-	if elapsed >= block_window:
+	if elapsed >= get_block_window():
 		_blocking = false
 		return false
-	if elapsed <= parry_window or randf() < block_success_chance:
+	if elapsed <= parry_window or randf() < get_block_success_chance():
 		if _reward_available:
 			_reward_available = false
 			provided_charge = get_charge()
@@ -116,7 +114,7 @@ func _flash() -> void:
 		if G.player.get_node("CanvasGroup").material:
 			G.player.get_node("CanvasGroup").set_instance_shader_parameter("hit_value", x)
 			G.player.get_node("CanvasGroup").set_instance_shader_parameter("hit_color", c)
-	, 1.0, 0.5, block_window - 0.3)
+	, 1.0, 0.5, get_block_window() - 0.3)
 	tween.tween_callback(func():
 		if is_instance_valid(G.player):
 			G.player._hit_anim(c, 0.2, 0.5)
@@ -132,11 +130,17 @@ func get_stats_after_text() -> String:
 	ret += tr("organelle_active_cost")
 	return ret
 
+func get_block_window() -> float:
+	return 1.0 + 0.25 * rarity
+
+func get_block_success_chance() -> float:
+	return maxf(0.5 - 0.04 * rarity, 0.0)
+
 func get_block_duration() -> float:
-	return 4.0
+	return 4.0 + 2.0 * rarity
 
 func get_cooldown() -> float:
-	return 2.0
+	return 2.0 - 0.15 * rarity
 
 func get_format_dict() -> Dictionary:
 	return super().merged({

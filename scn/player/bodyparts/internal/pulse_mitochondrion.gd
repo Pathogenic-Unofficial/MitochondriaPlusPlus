@@ -36,7 +36,7 @@ func get_period() -> float:
 	return 5.0
 
 func get_duration() -> float:
-	return 1.0
+	return 1.0 + 0.8 * rarity
 
 func get_format_dict() -> Dictionary:
 	return super().merged({

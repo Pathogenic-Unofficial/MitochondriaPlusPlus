@@ -19,9 +19,10 @@ func modify_attack(attack, chain: Array) -> void:
 	want_charge = true
 
 func get_charge_bonus() -> float:
-	return 0.05 * charge
+	var step := maxf(1.0 - 0.1 * rarity, 0.1)
+	return charge / step * (0.04 + 0.03 * rarity)
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
-		"damage_mult": roundi(0.05 * 100),
+		"damage_mult": roundi((0.04 + 0.03 * rarity) * 100),
 	})
