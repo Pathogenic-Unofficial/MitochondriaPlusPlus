@@ -10,6 +10,7 @@ const BODYPART_IDS := [
 	"block_ring",
 	"atp_hydrolase",
 	"atp_transferase",
+	"dext",
 ]
 
 const MESSAGES := {
@@ -34,6 +35,9 @@ const MESSAGES := {
 		"o_atp_transferase_name": "ATP Transferase",
 		"o_atp_transferase_desc": "Passes overcharge on to connected organelles.",
 		"o_atp_transferase_charged": "Connected organelles also gain overcharge.",
+		"o_dext_name": "Dext",
+		"o_dext_desc": "Final damage {neg}-{base_mult}%{/neg}. While overcharged, an extra {neg}-{charge_mult}%{/neg}. Applied last, multiplying after all other modifiers.",
+		"o_dext_flavor": "Less is more.",
 		"o_atp_transferase_flavor": "We don't make ATP. We're just the mitochondria's porters.",
 	},
 	"zh_CN": {
@@ -57,6 +61,9 @@ const MESSAGES := {
 		"o_atp_transferase_name": "ATP转移酶",
 		"o_atp_transferase_desc": "将过载传递给已连接的细胞器。",
 		"o_atp_transferase_charged": "连接的细胞器也获得过载。",
+		"o_dext_name": "Dext",
+		"o_dext_desc": "伤害{neg}-{base_mult}%{/neg}。{charge}过载时额外{neg}-{charge_mult}%{/neg}。",
+		"o_dext_flavor": "冻肉来袭！",
 		"o_atp_transferase_flavor": "我们不生产ATP，我们只做线粒体的搬运工。",
 	},
 }
