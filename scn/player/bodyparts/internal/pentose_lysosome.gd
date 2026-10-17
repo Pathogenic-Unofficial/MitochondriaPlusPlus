@@ -25,7 +25,7 @@ func activate_pressed() -> void:
 
 func activate() -> void:
 	provided_charge = getChargeMult()
-	$Timer.start(getChargeDuration())
+	$Timer.start($Timer.time_left + getChargeDuration())
 
 func _on_timer_timeout() -> void:
 	provided_charge = 0.0
