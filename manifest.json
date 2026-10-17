@@ -1,10 +1,12 @@
 {
-	"dependencies": ["AlexTheBeepBoop-BeepBoopLib"],
-	"description": "Adds 6 energy-themed organelles: Pulse Mitochondrion, Chloroplast, Pentose Lysosome, Block Ring, ATP Hydrolase and ATP Transferase.",
+	"dependencies": [
+		"AlexTheBeepBoop-BeepBoopLib"
+	],
+	"description": "本模组添加了一些好玩的能量器官。\n\n1.脉冲线粒体【线粒体】：每5秒触发过载1秒(每稀有1级，+0.8秒)，战斗外不生效。\n2.叶绿体【辅助】：\n连接到的线粒体的过载强度+10%（过载时额外+10%）(每稀有1级，基础值+9%)，\n受到激光或射线类伤害时+60%（过载时额外+40%）(每稀有1级，基础值+30%)，\n擦过激光或射线类伤害时+30%（过载时额外+30%）(每稀有1级，基础值+20%)，\n持续4秒（(每稀有1级，+1秒)）。\n3.五碳溶糖体【主动技能】：触发主动技能时水解1个DNA，获得2x过载5秒(每稀有1级，+1秒)。\n4.格挡聚能环【线粒体】：\n通过副攻击键触发，无敌1秒(每稀有1级，+0.25秒)，冷却2秒(每稀有1级，-0.15秒)，\n在0~0.5秒内格挡伤害获得3x过载4秒(每稀有1级，+2秒)，\n在0.5~1秒内格挡有50%概率失败(每稀有1级，-4%)。\n5.ATP水解酶【攻击修改器】：每过载1秒(每稀有1级，-0.1秒)，伤害+4%(每稀有1级，+3%)，可被修改：当过载时 获得已连接的修改器加成\n6.ATP转移酶【线粒体】：用于传递过载效果，自身过载时，连接到的细胞器也过载",
 	"extra": {
 		"godot": {
 			"authors": [
-				"FallingShrimp"
+				"陨落基围虾"
 			],
 			"compatible_game_version": [
 				"0.0.1"
@@ -19,13 +21,14 @@
 			"load_before": [],
 			"optional_dependencies": [],
 			"tags": [
-				"content",
-				"organelles"
+				"Mitochondria",
+				"Energy Generator",
+				"Action"
 			]
 		}
 	},
-	"name": "MitochondriaPlusPlus",
+	"name": "adenosine_hexaphosphate",
 	"namespace": "FallingShrimp",
-	"version_number": "0.0.1",
-	"website_url": "https://github.com/exampleauthor/examplemod"
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/Pathogenic-Unofficial/MitochondriaPlusPlus"
 }
