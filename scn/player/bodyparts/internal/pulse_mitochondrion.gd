@@ -19,8 +19,8 @@ func _on_room_started(_room: Room) -> void:
 	$Timer.start(get_period())
 
 func _on_timer_timeout() -> void:
+	$Timer.start(get_period())
 	if G.current_room == null or not slot:
-		$Timer.start(get_period())
 		return
 	provided_charge = get_charge()
 	$DurationTimer.start(get_duration())

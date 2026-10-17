@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://djbqjooy384p4"]
 
-[ext_resource type="Script" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/block_ring.gd" id="1"]
-[ext_resource type="Resource" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/block_ring.tres" id="2"]
-[ext_resource type="Texture2D" path="res://gfx/player/bodyparts/internal/energy_orbital.png" id="3"]
+[ext_resource type="Script" uid="uid://oruf3r2y2xxu" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/block_ring.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bhsld86ybg1jv" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/bodyparts/internal/block_ring.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://c2gg4ija1ehh3" path="res://gfx/player/bodyparts/internal/energy_orbital.png" id="3"]
 
 [sub_resource type="Animation" id="Animation_reset"]
 length = 0.001
@@ -42,26 +42,27 @@ _data = {
 &"wiggle": SubResource("Animation_wiggle")
 }
 
-[node name="BlockRing" type="Node2D"]
+[node name="BlockRing" type="Node2D" unique_id=1594506422]
 visibility_layer = 19
 z_index = 4
 script = ExtResource("1")
+activate_cost = 0.0
+attack_button = 1
 res = ExtResource("2")
 stats_text = "o_block_ring_stats"
 max_energy = 1.0
-activate_cost = 0.5
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=47702369]
 visibility_layer = 19
 
-[node name="Sprite" type="Sprite2D" parent="Visual"]
+[node name="Sprite" type="Sprite2D" parent="Visual" unique_id=1597205487]
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 19
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("3")
 
-[node name="Progress" type="TextureProgressBar" parent="Visual"]
+[node name="Progress" type="TextureProgressBar" parent="Visual" unique_id=1845828832]
 unique_name_in_owner = true
 modulate = Color(1.5, 1.2, 0.287, 1)
 visibility_layer = 19
@@ -84,11 +85,11 @@ radial_initial_angle = 180.0
 nine_patch_stretch = true
 texture_progress = ExtResource("3")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1811711845]
 libraries/ = SubResource("AnimationLibrary_main")
 autoplay = &"wiggle"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1677195819]
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

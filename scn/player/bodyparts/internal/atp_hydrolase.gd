@@ -3,6 +3,7 @@ extends Bodypart
 
 func _physics_process(delta: float) -> void:
 	super(delta)
+	want_charge = true
 	%Progress.value = lerp(%Progress.value, minf(charge / 3.0, 1.0), 0.04)
 
 func modify_attack(attack, chain: Array) -> void:
@@ -16,7 +17,6 @@ func modify_attack(attack, chain: Array) -> void:
 				continue
 			if c.has_tag(G.BodypartTags.AttackModifier) or c.has_tag(G.BodypartTags.BulletModifier):
 				c.modify_attack(attack, _extend_chain(chain))
-	want_charge = true
 
 func get_charge_bonus() -> float:
 	var step := maxf(1.0 - 0.1 * rarity, 0.1)

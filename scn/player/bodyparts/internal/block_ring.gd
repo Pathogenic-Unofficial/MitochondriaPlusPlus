@@ -68,6 +68,9 @@ func activate() -> void:
 	_block_start = Time.get_ticks_msec() / 1000.0
 	_flash()
 
+func _on_timer_timeout() -> void:
+	provided_charge = 0.0
+
 func _spawn_parry_effect(hit_pos: Vector2, perfect: bool) -> void:
 	if not is_instance_valid(G.player) or not is_instance_valid(G.player.center_body):
 		return
