@@ -63,30 +63,13 @@ const MESSAGES := {
 	},
 }
 
-var active_blockers := []
-var hook_active := false
-
 func _init() -> void:
 	ModLoaderLog.info("Init", LOG_NAME)
-	ModLoaderMod.add_hook(Callable(self, "_hook_player_hit"), "res://scn/player/player.gd", "hit")
-	hook_active = not ModLoaderStore.has_feature.editor \
-		and FileAccess.file_exists(_ModLoaderPath.get_path_to_hook_pack())
-	if not hook_active:
-		ModLoaderLog.info("Hook pack not mounted yet, block ring uses damage_blocked fallback", LOG_NAME)
 	_register_bodyparts()
 	_add_translations()
 
 func _ready() -> void:
 	ModLoaderLog.info("Ready", LOG_NAME)
-
-func _hook_player_hit(chain: ModLoaderHookChain, damage, pos, attack = null) -> void:
-	for w in active_blockers:
-		if not is_instance_valid(w):
-			active_blockers.erase(w)
-			continue
-		if w._try_block(pos):
-			return
-	chain.execute_next([damage, pos, attack])
 
 func _register_bodyparts() -> void:
 	var group = load("res://scn/player/bodyparts/all_bodyparts.tres")

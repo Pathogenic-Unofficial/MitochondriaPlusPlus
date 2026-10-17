@@ -17,8 +17,7 @@ func _ready() -> void:
 	SignalBus.player_pre_hit.connect(_on_player_pre_hit)
 
 func _on_player_pre_hit(player, _damage, attack) -> void:
-	var ml := get_node_or_null("/root/ModLoader/FallingShrimp-MitochondriaPlusPlus")
-	if ml == null or ml.hook_active or not _blocking:
+	if not _blocking:
 		return
 	var elapsed := Time.get_ticks_msec() / 1000.0 - _block_start
 	if elapsed >= get_block_window():
@@ -37,16 +36,6 @@ func _on_player_pre_hit(player, _damage, attack) -> void:
 		_spawn_parry_effect(hit_pos, elapsed <= parry_window)
 	else:
 		_blocking = false
-
-func _enter_tree() -> void:
-	var ml := get_node_or_null("/root/ModLoader/FallingShrimp-MitochondriaPlusPlus")
-	if ml:
-		ml.active_blockers.append(self)
-
-func _exit_tree() -> void:
-	var ml := get_node_or_null("/root/ModLoader/FallingShrimp-MitochondriaPlusPlus")
-	if ml:
-		ml.active_blockers.erase(self)
 
 func _physics_process(delta: float) -> void:
 	super(delta)
@@ -76,28 +65,10 @@ func activate() -> void:
 	_block_start = Time.get_ticks_msec() / 1000.0
 	_flash()
 
-func _try_block(hit_pos: Vector2) -> bool:
-	if not _blocking:
-		return false
-	var elapsed := Time.get_ticks_msec() / 1000.0 - _block_start
-	if elapsed >= get_block_window():
-		_blocking = false
-		return false
-	if elapsed <= parry_window or randf() < get_block_success_chance():
-		if _reward_available:
-			_reward_available = false
-			provided_charge = get_charge()
-			$Timer.start(get_block_duration())
-			blink()
-		_spawn_parry_effect(hit_pos, elapsed <= parry_window)
-		return true
-	_blocking = false
-	return false
-
 func _spawn_parry_effect(hit_pos: Vector2, perfect: bool) -> void:
 	if not is_instance_valid(G.player) or not is_instance_valid(G.player.center_body):
 		return
-	var effect: EffectPlayer = (PERFECT_PARRY if perfect else UNEXACT_PARRY).instantiate()
+	var effect: Node2D = (PERFECT_PARRY if perfect else UNEXACT_PARRY).instantiate()
 	G.main.add_child(effect)
 	effect.global_position = G.player.center_body.global_position
 	effect.rotation = G.player.center_body.global_position.angle_to_point(hit_pos)

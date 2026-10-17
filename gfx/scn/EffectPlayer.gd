@@ -1,5 +1,4 @@
 extends Node2D
-class_name EffectPlayer
 
 @export var oneShot: bool = false
 @export var autoplayAnimation: StringName = ""
@@ -7,9 +6,9 @@ class_name EffectPlayer
 @export var autoplaySound: StringName = ""
 @export var autoplayShake: float = 0
 
-@onready var sounds: SoundStage = $%sounds
+@onready var sounds: Node2D = $%sounds
 @onready var animator: AnimationPlayer = $%animator
-@onready var shaderStage: ShaderStage = $%shader
+@onready var shaderStage: Node2D = $%shader
 @onready var frameSprite: AnimatedSprite2D = $%frames
 @onready var texture: Sprite2D = $%texture
 @onready var particles: GPUParticles2D = $%particles

@@ -1,5 +1,4 @@
 extends Node2D
-class_name SoundStage
 
 signal soundStopped(soundName: String)
 
