@@ -1,6 +1,8 @@
 @tool
 extends Bodypart
 
+const FREEZED_MEAT := preload("res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/projectiles/freezed_meat.tscn")
+
 func _ready() -> void:
 	super()
 	SignalBus.on_attack.connect(applyFinalMult)
@@ -15,6 +17,19 @@ func applyFinalMult(attack, source) -> void:
 	if not source.connections.has(self):
 		return
 	attack.damage *= getDamageMult()
+	spawnMeat(attack, source)
+
+func spawnMeat(attack, source) -> void:
+	if not is_instance_valid(G.main):
+		return
+	var meat := FREEZED_MEAT.instantiate()
+	G.main.bullet_layer.add_child(meat)
+	meat.global_position = source.global_position
+	var dir := Vector2.UP
+	var vel = attack.get("linear_velocity")
+	if vel is Vector2 and vel.length_squared() > 1.0:
+		dir = vel.normalized()
+	meat.shoot(dir, source)
 
 func getDamageMult() -> float:
 	return 0.1 - (0.09 if charge > 0.0 else 0.0)
