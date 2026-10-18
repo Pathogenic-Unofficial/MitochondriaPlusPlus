@@ -36,9 +36,9 @@ const MESSAGES := {
 		"o_atp_transferase_desc": "Passes overcharge on to connected organelles.",
 		"o_atp_transferase_charged": "Connected organelles also gain overcharge.",
 		"o_dext_name": "Dext",
-		"o_dext_desc": "Connected attacks deal {neg}-{base_mult}%{/neg} damage but fire a FreezedMeat dealing {meat_mult}% of the attack's damage (+20% per rarity level), with random speed — faster meat and longer intervals between shots deal more damage. Freezes enemies for {freeze_time}s (+1s per rarity level) on hit.",
+		"o_dext_desc": "Connected attacks deal {neg}-{base_mult}%{/neg} damage but fire a FreezedMeat dealing {pos}{meat_mult}% of the attack's damage{/pos} (+20% per rarity level), with random speed — faster meat and longer intervals between shots deal more damage. Freezes enemies for {pos}{freeze_time}s{/pos} (+1s per rarity level) on hit.",
 		"o_dext_flavor": "Less is more.",
-		"o_dext_charged": "Damage {neg}-{charge_mult}%{/neg}",
+		"o_dext_charged": "FreezedMeat damage {pos}+50%{/pos}",
 		"o_atp_transferase_flavor": "We don't make ATP. We're just the mitochondria's porters.",
 	},
 	"zh_CN": {
@@ -64,9 +64,9 @@ const MESSAGES := {
 		"o_atp_transferase_charged": "连接的细胞器也获得过载。",
 		"o_atp_transferase_flavor": "我们不生产ATP，我们只做线粒体的搬运工。",
 		"o_dext_name": "Dext",
-		"o_dext_desc": "连接的攻击伤害{neg}-{base_mult}%{/neg}，但攻击会附带一块随机速度且造成{meat_mult}%原伤害的冻肉，速度越快伤害越高，两次攻击间隔越久伤害越高，撞击后冰冻敌人{freeze_time}秒（稀有度每+1级冰冻时间+1秒）。",
+		"o_dext_desc": "连接的攻击伤害{neg}-{base_mult}%{/neg}，但攻击会附带一块随机速度且造成{pos}{meat_mult}%原伤害{/pos}的冻肉，速度越快伤害越高，两次攻击间隔越久伤害越高，撞击后冰冻敌人{pos}{freeze_time}秒{/pos}。",
 		"o_dext_flavor": "冻肉来袭！",
-		"o_dext_charged": "伤害{neg}-{charge_mult}%{/neg}",
+		"o_dext_charged": "冻肉伤害{pos}+50%{/pos}",
 	},
 }
 

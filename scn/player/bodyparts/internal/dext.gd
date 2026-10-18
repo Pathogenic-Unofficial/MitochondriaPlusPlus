@@ -46,18 +46,20 @@ func getMeatChargeMult(elapsed: float) -> float:
 	return minf(1.0 + elapsed * 0.5, 8.0)
 
 func getMeatDamageMult() -> float:
-	return 0.25 * (1.0 + 0.2 * rarity)
+	return 0.25 * (1.0 + 0.2 * rarity) * getMeatChargeBonus()
+
+func getMeatChargeBonus() -> float:
+	return 1.5 if charge > 0.0 else 1.0
 
 func getFreezeDuration() -> float:
 	return 2.0 + rarity
 
 func getDamageMult() -> float:
-	return 0.1 - (0.09 if charge > 0.0 else 0.0)
+	return 0.01
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
-		"base_mult": roundi((1.0 - 0.1) * 100),
-		"charge_mult": roundi(0.09 * 100),
+		"base_mult": roundi((1.0 - getDamageMult()) * 100),
 		"meat_mult": roundi(getMeatDamageMult() * 100),
 		"freeze_time": Utils.snapped(getFreezeDuration(), 0.1),
 	})
