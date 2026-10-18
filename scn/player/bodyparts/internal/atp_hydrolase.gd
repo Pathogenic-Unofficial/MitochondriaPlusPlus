@@ -18,11 +18,15 @@ func modify_attack(attack, chain: Array) -> void:
 			if c.has_tag(G.BodypartTags.AttackModifier) or c.has_tag(G.BodypartTags.BulletModifier):
 				c.modify_attack(attack, _extend_chain(chain))
 
+const OVERCHARGE_STEP = 0.5
+
 func getChargeBonus() -> float:
-	var step = maxf(1.0 - 0.1 * rarity, 0.1)
-	return charge / step * (0.04 + 0.03 * rarity)
+	return charge / OVERCHARGE_STEP * getStepBonus()
+
+func getStepBonus() -> float:
+	return 0.2 + 0.1 * rarity
 
 func get_format_dict() -> Dictionary:
 	return super().merged({
-		"damage_mult": roundi((0.04 + 0.03 * rarity) * 100),
+		"damage_mult": roundi(getStepBonus() * 100),
 	})
