@@ -34,7 +34,8 @@ func spawnMeat(attack, source) -> void:
 		var mult = randf_range(0.5, 2.0) * getMeatChargeMult(elapsed)
 		meat.speed *= mult
 		meat.spin_speed *= mult
-		meat.set_base_damage(meat.base_damage * mult)
+		meat.freeze_duration = getFreezeDuration()
+		meat.set_base_damage(attack.damage * getMeatDamageMult() * mult)
 		var dir := Vector2.UP
 		var vel = attack.get("linear_velocity")
 		if vel is Vector2 and vel.length_squared() > 1.0:
@@ -44,6 +45,12 @@ func spawnMeat(attack, source) -> void:
 func getMeatChargeMult(elapsed: float) -> float:
 	return minf(1.0 + elapsed * 0.5, 8.0)
 
+func getMeatDamageMult() -> float:
+	return 0.25 * (1.0 + 0.2 * rarity)
+
+func getFreezeDuration() -> float:
+	return 2.0 + rarity
+
 func getDamageMult() -> float:
 	return 0.1 - (0.09 if charge > 0.0 else 0.0)
 
@@ -51,4 +58,6 @@ func get_format_dict() -> Dictionary:
 	return super().merged({
 		"base_mult": roundi((1.0 - 0.1) * 100),
 		"charge_mult": roundi(0.09 * 100),
+		"meat_mult": roundi(getMeatDamageMult() * 100),
+		"freeze_time": Utils.snapped(getFreezeDuration(), 0.1),
 	})
