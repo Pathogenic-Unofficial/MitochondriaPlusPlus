@@ -10,7 +10,7 @@ func _ready() -> void:
 	enemy_hit.connect(freezeEnemy)
 
 func _physics_process(delta: float) -> void:
-	%Visual.rotation += spin_speed * delta
+	%Visual/Sprite2D.rotation += spin_speed * delta
 
 func freezeEnemy(enemy, _pos) -> void:
 	if not is_instance_valid(enemy) or enemy.has_node("freeze_effect"):

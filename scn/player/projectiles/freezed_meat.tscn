@@ -2,6 +2,42 @@
 
 [ext_resource type="Script" uid="uid://cqn28iklxr3fu" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/scn/player/projectiles/freezed_meat.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://rnwobatjbmqp" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/projectiles/meat.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://snvdreukmpk" path="res://mods-unpacked/FallingShrimp-adenosine_hexaphosphate/gfx/bodyparts/dext.jpg" id="3_nayt0"]
+
+[sub_resource type="Curve" id="Curve_ada0m"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_55h3r"]
+curve = SubResource("Curve_ada0m")
+
+[sub_resource type="Curve" id="Curve_p3vib"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jhdxj"]
+curve = SubResource("Curve_p3vib")
+
+[sub_resource type="Curve" id="Curve_3olan"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.7), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2ibnm"]
+curve = SubResource("Curve_3olan")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d55d7"]
+particle_flag_disable_z = true
+angle_min = -360.0
+angle_max = 360.00003
+angle_curve = SubResource("CurveTexture_jhdxj")
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.06
+scale_max = 0.19
+scale_curve = SubResource("CurveTexture_2ibnm")
+alpha_curve = SubResource("CurveTexture_55h3r")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_meat"]
 radius = 77.0
@@ -84,6 +120,13 @@ lifetime = 20.0
 
 [node name="Visual" type="Node2D" parent="." unique_id=1503371650]
 unique_name_in_owner = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visual" unique_id=1321259028]
+z_index = -1
+scale = Vector2(1.5, 1.5)
+amount = 25
+texture = ExtResource("3_nayt0")
+process_material = SubResource("ParticleProcessMaterial_d55d7")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=916308651]
 scale = Vector2(1.5, 1.5)
