@@ -64,7 +64,7 @@ const MESSAGES := {
 		"o_atp_transferase_charged": "连接的细胞器也获得过载。",
 		"o_atp_transferase_flavor": "我们不生产ATP，我们只做线粒体的搬运工。",
 		"o_dext_name": "Dext",
-		"o_dext_desc": "连接的攻击伤害{neg}-{base_mult}%{/neg}，但攻击会附带一块随机速度且造成{pos}{meat_mult}%原伤害{/pos}的冻肉，速度越快伤害越高，两次攻击间隔越久伤害越高，撞击后冰冻敌人{pos}{freeze_time}秒{/pos}。",
+		"o_dext_desc": "连接的攻击伤害{neg}-{base_mult}%{/neg}，但攻击会附带一块随机速度、无视地形穿透且造成{pos}{meat_mult}%原伤害{/pos}的冻肉，速度越快伤害越高，两次攻击间隔越久伤害越高，撞击后冰冻敌人{pos}{freeze_time}秒{/pos}。",
 		"o_dext_flavor": "冻肉来袭！",
 		"o_dext_charged": "冻肉伤害{pos}+50%{/pos}",
 	},

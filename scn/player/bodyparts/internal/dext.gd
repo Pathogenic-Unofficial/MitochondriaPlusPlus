@@ -18,10 +18,11 @@ func applyFinalMult(attack, source) -> void:
 		return
 	if not source.connections.has(self):
 		return
+	var original_damage = attack.damage
 	attack.damage *= getDamageMult()
-	spawnMeat(attack, source)
+	spawnMeat(attack, source, original_damage)
 
-func spawnMeat(attack, source) -> void:
+func spawnMeat(attack, source, original_damage: float) -> void:
 	if not is_instance_valid(G.main):
 		return
 	var now := Time.get_ticks_msec() / 1000.0
@@ -33,9 +34,9 @@ func spawnMeat(attack, source) -> void:
 		meat.global_position = source.global_position
 		var mult = randf_range(0.5, 2.0) * getMeatChargeMult(elapsed)
 		meat.speed *= mult
-		meat.spin_speed *= mult
+		meat.spin_speed *= mult * randf_range(-1, 1)
 		meat.freeze_duration = getFreezeDuration()
-		meat.set_base_damage(attack.damage * getMeatDamageMult() * mult)
+		meat.set_base_damage(original_damage * getMeatDamageMult() * mult)
 		var dir := Vector2.UP
 		var vel = attack.get("linear_velocity")
 		if vel is Vector2 and vel.length_squared() > 1.0:
@@ -46,7 +47,7 @@ func getMeatChargeMult(elapsed: float) -> float:
 	return minf(1.0 + elapsed * 0.5, 8.0)
 
 func getMeatDamageMult() -> float:
-	return 0.25 * (1.0 + 0.2 * rarity) * getMeatChargeBonus()
+	return 0.5 * (1.0 + 0.2 * rarity) * getMeatChargeBonus()
 
 func getMeatChargeBonus() -> float:
 	return 1.5 if charge > 0.0 else 1.0
