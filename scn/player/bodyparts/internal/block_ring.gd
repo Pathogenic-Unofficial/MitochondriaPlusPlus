@@ -125,4 +125,5 @@ func get_format_dict() -> Dictionary:
 		"duration": roundi(getChargeDuration()),
 		"cooldown": roundi(getCooldownTime()),
 		"perfect_parry_window": Utils.snapped(getPerfectWindow(), 0.1),
+		"unexact_parry_rate": roundi(unexactParryRate() * 100),
 	})
