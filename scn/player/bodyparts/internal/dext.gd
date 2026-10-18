@@ -50,7 +50,7 @@ func getMeatDamageMult() -> float:
 	return 0.5 * (1.0 + 0.2 * rarity) * getMeatChargeBonus()
 
 func getMeatChargeBonus() -> float:
-	return 1.5 if charge > 0.0 else 1.0
+	return 1.0 + 0.5 * charge
 
 func getFreezeDuration() -> float:
 	return 2.0 + rarity
