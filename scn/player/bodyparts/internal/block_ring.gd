@@ -75,8 +75,11 @@ func spawnSpark(pos: Vector2, perfect: bool) -> void:
 		return
 	var effect: Node2D = (PERFECT_PARRY if perfect else UNEXACT_PARRY).instantiate()
 	G.main.add_child(effect)
+	effect.scale *= 3
+	effect.z_index *= 999
+	effect.z_as_relative = false
 	effect.global_position = G.player.center_body.global_position
-	effect.rotation = G.player.center_body.global_position.angle_to_point(pos)
+	effect.rotation = randf_range(0, TAU)
 	effect.shot()
 
 func parryEffect() -> void:
@@ -97,7 +100,7 @@ func parryEffect() -> void:
 	)
 
 func getChargeMult() -> float:
-	return 3.0 + rarity
+	return 3.0
 
 func get_stats_after_text() -> String:
 	if stats_after_text:
