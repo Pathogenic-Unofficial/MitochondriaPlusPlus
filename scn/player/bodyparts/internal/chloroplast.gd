@@ -1,9 +1,8 @@
 @tool
 extends Bodypart
 
-const GRAZE_RADIUS = 220.0
-
 var restGrazeTime = 0.0
+var last_player
 
 func _ready() -> void:
 	super()
@@ -12,7 +11,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 	restGrazeTime = maxf(restGrazeTime - delta, 0.0)
-	checkGraze()
+	updateGrazeArea()
 	%Progress.value = minf(getCurrentBonus(), 1.0)
 
 func tickModify(b) -> void:
@@ -26,18 +25,39 @@ func tickModify(b) -> void:
 		return
 	b.energy_generation_mult += getCurrentBonus()
 
-func checkGraze() -> void:
-	if restGrazeTime > 0.0:
+func updateGrazeArea() -> void:
+	if not slot or not G.player.is_dodging():
+		$Area2D.collision_layer = 0
+		$Area2D.collision_mask = 0
 		return
-	if not is_instance_valid(G.player) or not is_instance_valid(G.player.center_body):
+	$Area2D.collision_layer = G.CollisionLayers.PLAYER
+	$Area2D.collision_mask = G.CollisionLayers.ENEMY_BULLET
+	setup_shapes()
+	var bodies = G.player.softbody.get_rigid_bodies()
+	for i in range(len(bodies)):
+		$Area2D.get_child(i + 1).global_position = bodies[i].rigidbody.global_position
+
+func setup_shapes():
+	var bodies = G.player.softbody.get_rigid_bodies()
+	if last_player == G.player and $Area2D.get_child_count() == len(bodies) + 1:
 		return
-	for b in G.get_tree().get_nodes_in_group("enemy_bullets"):
-		if not is_instance_valid(b) or not (b is Node2D):
+	for c in $Area2D.get_children():
+		if c == $Area2D/BaseShape:
 			continue
-		if b.global_position.distance_to(G.player.center_body.global_position) < GRAZE_RADIUS:
-			restGrazeTime = getTriggerDuration()
-			blink()
-			break
+		c.queue_free()
+		$Area2D.remove_child(c)
+	for r in bodies:
+		var cs: CollisionShape2D
+		if "shape" in r and r.shape:
+			cs = r.shape.duplicate()
+		else:
+			cs = $Area2D/BaseShape.duplicate()
+		$Area2D.add_child(cs)
+	last_player = G.player
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	restGrazeTime = getTriggerDuration()
+	blink()
 
 func getCurrentBonus() -> float:
 	var ret = getBaseBonus()
