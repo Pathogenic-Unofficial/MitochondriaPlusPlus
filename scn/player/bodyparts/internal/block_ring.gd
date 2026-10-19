@@ -14,6 +14,26 @@ func _ready() -> void:
 	super()
 	attack_button = G.AttackButton.SECONDARY
 	SignalBus.player_pre_hit.connect(prehitTest)
+	SignalBus.on_attack.connect(slashParryCheck)
+
+func slashParryCheck(attack, source) -> void:
+	if not slot or not is_instance_valid(attack) or not is_instance_valid(source):
+		return
+	if not (source in connections):
+		return
+	if not attack is Slash or attack.has_meta(&"block_ring_parry"):
+		return
+	attack.set_meta(&"block_ring_parry", true)
+	attack.bullet_slashed.connect(slashParry)
+
+func slashParry(_bullet) -> void:
+	if randf() >= unexactParryRate():
+		provided_charge = getChargeMult()
+		$Timer.start(getChargeDuration())
+		blink()
+		spawnSpark(_bullet.global_position, true)
+	else:
+		spawnSpark(_bullet.global_position, false)
 
 func prehitTest(player, _damage, attack) -> void:
 	if not isBlocking:
