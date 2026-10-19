@@ -7,7 +7,7 @@ const UNEXACT_PARRY = preload("res://mods-unpacked/FallingShrimp-adenosine_hexap
 
 var isBlocking = false
 var canCounter = false
-var lastStartTime = -100.0
+var blockElapsed = 0.0
 var parryCooldownRest = 0.0
 
 func _ready() -> void:
@@ -23,26 +23,24 @@ func slashParryCheck(attack, source) -> void:
 		return
 	if not attack is Slash or attack.has_meta(&"block_ring_parry"):
 		return
-	attack.set_meta(&"block_ring_parry", true)
-	attack.bullet_slashed.connect(slashParry)
+	attack.set_meta(&"block_ring_parry", Time.get_ticks_msec())
+	attack.bullet_slashed.connect(slashParry.bind(attack))
 
-func slashParry(_bullet) -> void:
-	if randf() >= unexactParryRate():
+func slashParry(_bullet, attack) -> void:
+	var elapsed = (Time.get_ticks_msec() - attack.get_meta(&"block_ring_parry")) / 1000.0
+	if elapsed <= getPerfectWindow() or randf() < unexactParryRate():
 		provided_charge = getChargeMult()
 		$Timer.start(getChargeDuration())
 		blink()
-		spawnSpark(_bullet.global_position, true)
-	else:
-		spawnSpark(_bullet.global_position, false)
+		spawnSpark(_bullet.global_position, elapsed <= getPerfectWindow())
 
 func prehitTest(player, _damage, attack) -> void:
 	if not isBlocking:
 		return
-	var elapsed = Time.get_ticks_msec() / 1000.0 - lastStartTime
-	if elapsed >= getParryDuration():
+	if blockElapsed >= getParryDuration():
 		isBlocking = false
 		return
-	if elapsed <= getPerfectWindow() or randf() < unexactParryRate():
+	if blockElapsed <= getPerfectWindow() or randf() < unexactParryRate():
 		player.damage_blocked = true
 		if canCounter:
 			canCounter = false
@@ -52,15 +50,17 @@ func prehitTest(player, _damage, attack) -> void:
 		var hit_pos = player.center_body.global_position
 		if attack != null and "affected_body" in attack and is_instance_valid(attack.affected_body):
 			hit_pos = attack.affected_body.global_position
-		spawnSpark(hit_pos, elapsed <= getPerfectWindow())
+		spawnSpark(hit_pos, blockElapsed <= getPerfectWindow())
 	else:
 		isBlocking = false
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	parryCooldownRest = maxf(parryCooldownRest - delta, 0.0)
-	if isBlocking and Time.get_ticks_msec() / 1000.0 - lastStartTime >= getParryDuration():
-		isBlocking = false
+	if isBlocking:
+		blockElapsed += delta
+		if blockElapsed >= getParryDuration():
+			isBlocking = false
 	if isBlocking:
 		%Progress.value = 1.0
 	elif parryCooldownRest > 0.0:
@@ -84,7 +84,7 @@ func activate_pressed() -> void:
 func activate() -> void:
 	isBlocking = true
 	canCounter = true
-	lastStartTime = Time.get_ticks_msec() / 1000.0
+	blockElapsed = 0.0
 	parryEffect()
 
 func _on_timer_timeout() -> void:
